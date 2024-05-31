@@ -1,0 +1,52 @@
+class Solution {
+    public int[] singleNumber(int[] nums) {
+
+        // Aprroach 2 using HashMap
+
+        HashMap<Integer,Integer>  countMap= new HashMap<>();
+        for( int num :nums){
+            countMap.put(num, countMap.getOrDefault(num,0)+1);
+
+        }
+
+        int[] result =new int[2];
+        int count=0;
+
+
+        for(Map.Entry<Integer, Integer> entry: countMap.entrySet()){
+            if(entry.getValue()==1){
+                result[count]=entry.getKey();
+                count++;
+
+                if (count==2){
+                    break;
+                }
+            }
+
+        }
+        return result;
+/*Approach 1 using iterartive approach in o(n^2);
+        int n=nums.length;
+        int[] result=new int[2];
+        int count=0;
+        for( int i=0;i<n;i++){
+            boolean found=false;
+            for( int j=0;j<n;j++){
+                if(i!=j &&nums[i]==nums[j]){
+                    found=true;
+                    break;
+                }
+                
+            }
+            if(!found){
+                result[count]=nums[i];
+                count++;
+               
+            }
+             if( count==2){
+                    break;
+                }
+        }
+        return result*/
+    }
+}
