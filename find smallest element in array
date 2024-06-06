@@ -1,0 +1,49 @@
+
+//User function Template for Java
+
+class Solution {
+    public static int kthSmallest(int[] arr, int l, int r, int k) {
+        // Your code here
+        return quickSelect(arr, l, r, k - 1);
+    }
+
+    public static int quickSelect(int[] a, int low, int high, int k) {
+        if (low == high) {
+            return a[low];
+        }
+        
+        int pivotIndex = low + (high - low) / 2;
+        pivotIndex = partition(a, low, high, pivotIndex);
+        
+        if (k == pivotIndex) {
+            return a[pivotIndex];
+        } else if (k > pivotIndex) {
+            return quickSelect(a, pivotIndex + 1, high, k);
+        } else {
+            return quickSelect(a, low, pivotIndex - 1, k);
+        }
+    }
+
+    public static int partition(int[] nums, int l, int h, int pivotIndex) {
+        int pivotValue = nums[pivotIndex];
+        swap(nums, pivotIndex, h); // Move pivot to end
+        int storeIndex = l;
+
+        for (int i = l; i < h; i++) {
+            if (nums[i] < pivotValue) {
+                swap(nums, storeIndex, i);
+                storeIndex++;
+            }
+        }
+        swap(nums, h, storeIndex); // Move pivot to its final place
+        return storeIndex;
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+   
+}
