@@ -1,0 +1,28 @@
+class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+        int sum = 0;
+        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1); // Initialize with 0 remainder seen once
+        
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            int remainder = sum % k;
+            
+            // Handle negative remainders
+            if (remainder < 0) {
+                remainder += k;
+            }
+            
+            // If this remainder has been seen before, add the count
+            if (map.containsKey(remainder)) {
+                count += map.get(remainder);
+            }
+            
+            // Update the count of this remainder in the map
+            map.put(remainder, map.getOrDefault(remainder, 0) + 1);
+        }
+        
+        return count;
+    }
+}
